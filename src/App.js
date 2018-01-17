@@ -31,7 +31,6 @@ class App extends PureComponent {
   state = {
     searchText: '',
     clicked: 0,
-    // 선택된 비디오 아이디
     selectedVId: -1
   };
 
@@ -64,8 +63,10 @@ class App extends PureComponent {
 
   _maybeRenderVideoSelected = (id) => {
     if (id !== -1) {
-      // VideoSelected 컴포넌트를 넣어야한다.
-      // const video = VideoData[id]; 로 비디오 정보를 가져온다.
+      const video = VideoData[id];
+      return (
+        <VideoSelected video={ video } />
+      );
     } else {
       return (
         <div>
@@ -88,7 +89,15 @@ class App extends PureComponent {
   }
 
   _handleVideoListClick = (id) => {
-    // setState로 비디오 아이디를 저장해야한다.
+    this.setState({
+      selectedVId: id
+    });
+  }
+
+  // 비디오 즐겨찾기 버튼을 누르면 그 비디오의 id가
+  // 콘솔창에 찍혀야한다.
+  _handleVideoListFavorite = (id) => {
+    console.log('id', id);
   }
 }
 

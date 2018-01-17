@@ -29,6 +29,7 @@ class VideoList extends PureComponent {
   _handleClick = (id) => {
     this.props.handleClick(id);
   }
+
 }
 
 export default VideoList;
