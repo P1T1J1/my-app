@@ -49,7 +49,9 @@ class App extends PureComponent {
 
           <div className="body">
             <VideoSelected />
-            <VideoList />
+            <VideoList
+              videoData={ VideoData }
+              handleClick={ () => {} } />
           </div>
         </div>
       </div>
@@ -66,7 +68,11 @@ class App extends PureComponent {
     this.setState({
       searchText: e.target.value
     });
-  };
+  }
+
+  _handleVideoListClick = (id) => {
+    console.log('id', id);
+  }
 }
 
 export default App;

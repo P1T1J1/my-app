@@ -1,12 +1,10 @@
 import React, {PureComponent} from 'react';
+import './styles.css';
 
 class SearchBar extends PureComponent {
-  state = {
-    searchText: 'jh'
-  };
   render() {
     return (
-      <div>
+      <div className="searchbar">
         <input
           type="text"
           value={this.props.onInputText}

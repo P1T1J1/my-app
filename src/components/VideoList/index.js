@@ -13,7 +13,19 @@ class VideoList extends PureComponent {
   }
 
   _renderVideoList = () => {
-  
+    const { videoData } = this.props;
+    return videoData.map((video) => {
+      return (
+        <VideoDetail
+          key={ video.id }
+          id={ video.id }
+          title={ video.title }
+          thumbnail={ video.thumbnail } />
+      );
+    });
+  }
+
+  _handleClick = (id) => {
   }
 }
 

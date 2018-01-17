@@ -3,11 +3,11 @@ import './styles.css';
 
 class VideoDetail extends PureComponent {
   render () {
-    const { title, thumbnail, handleClick } = this.props;
+    const { title, thumbnail } = this.props;
     return (
       <div
         className="video-detail"
-        onClick={ handleClick }>
+        onClick={ this._handleClick }>
         <div>
           { title }
         </div>
@@ -16,6 +16,9 @@ class VideoDetail extends PureComponent {
         </div>
       </div>
     );
+  }
+
+  _handleClick = () => {
   }
 }
 
