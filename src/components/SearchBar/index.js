@@ -5,7 +5,6 @@ class SearchBar extends PureComponent {
     searchText: 'jh'
   };
   render() {
-    console.log('SearchBar', this.state.searchText);
     return (
       <div>
         <input
