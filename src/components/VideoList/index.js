@@ -20,12 +20,14 @@ class VideoList extends PureComponent {
           key={ video.id }
           id={ video.id }
           title={ video.title }
-          thumbnail={ video.thumbnail } />
+          thumbnail={ video.thumbnail }
+          handleClick={ this._handleClick } />
       );
     });
   }
 
   _handleClick = (id) => {
+    this.props.handleClick(id);
   }
 }
 

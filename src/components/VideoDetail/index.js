@@ -19,6 +19,8 @@ class VideoDetail extends PureComponent {
   }
 
   _handleClick = () => {
+    const { id } = this.props;
+    this.props.handleClick(id)
   }
 }
 

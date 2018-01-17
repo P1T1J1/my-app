@@ -7,22 +7,22 @@ import './App.css';
 
 const VideoData = [
   {
-    id: 1,
+    id: 0,
     title: '1번 비디오',
     thumbnail: 'example1.com'
   },
   {
-    id: 2,
+    id: 1,
     title: '2번 비디오',
     thumbnail: 'example1.com'
   },
   {
-    id: 3,
+    id: 2,
     title: '3번 비디오',
     thumbnail: 'example1.com'
   },
   {
-    id: 4,
+    id: 3,
     title: '4번 비디오',
     thumbnail: 'example1.com'
   }
@@ -30,11 +30,13 @@ const VideoData = [
 class App extends PureComponent {
   state = {
     searchText: '',
-    clicked: 0
+    clicked: 0,
+    // 선택된 비디오 아이디
+    selectedVId: -1
   };
 
   render() {
-    const { searchText, clicked } = this.state;
+    const { searchText, clicked, selectedVId } = this.state;
     return (
       <div className="container">
         <div className="wrapper">
@@ -48,14 +50,29 @@ class App extends PureComponent {
           </div>
 
           <div className="body">
-            <VideoSelected />
+            {
+              this._maybeRenderVideoSelected(selectedVId)
+            }
             <VideoList
               videoData={ VideoData }
-              handleClick={ () => {} } />
+              handleClick={ this._handleVideoListClick } />
           </div>
         </div>
       </div>
     );
+  }
+
+  _maybeRenderVideoSelected = (id) => {
+    if (id !== -1) {
+      // VideoSelected 컴포넌트를 넣어야한다.
+      // const video = VideoData[id]; 로 비디오 정보를 가져온다.
+    } else {
+      return (
+        <div>
+          선택된 비디오가 없습니다.
+        </div>
+      );
+    }
   }
 
   _onChangeClickBtn = () => {
@@ -71,7 +88,7 @@ class App extends PureComponent {
   }
 
   _handleVideoListClick = (id) => {
-    console.log('id', id);
+    // setState로 비디오 아이디를 저장해야한다.
   }
 }
 
