@@ -35,7 +35,10 @@ class VideoDetail extends PureComponent {
   // 즐겨찾기 버튼을 누르면 App.js로 현재 비디오의 id가
   // 전달되어야한다.
   _handleFavorite = () => {
-
+    const { id, handleFavorite } = this.props;
+    if (handleFavorite) {
+      handleFavorite(id);
+    }
   }
 }
 

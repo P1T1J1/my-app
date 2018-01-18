@@ -54,7 +54,8 @@ class App extends PureComponent {
             }
             <VideoList
               videoData={ VideoData }
-              handleClick={ this._handleVideoListClick } />
+              handleClick={ this._handleVideoListClick }
+              handleFavorite={ this._handleVideoListFavorite } />
           </div>
         </div>
       </div>
