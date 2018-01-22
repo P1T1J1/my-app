@@ -1,3 +1,4 @@
+import { List } from 'immutable';
 import React, { PureComponent } from 'react';
 import SearchBar from './components/SearchBar';
 import SearchButton from './components/SearchButton';
@@ -31,31 +32,50 @@ class App extends PureComponent {
   state = {
     searchText: '',
     clicked: 0,
-    selectedVId: -1
+    selectedVId: -1,
+    favorVIdList: List()
   };
 
   render() {
-    const { searchText, clicked, selectedVId } = this.state;
+    const { searchText, clicked, selectedVId, favorVIdList } = this.state;
+
+    // 결과 확인
+    console.log(favorVIdList.toJS());
+
     return (
       <div className="container">
         <div className="wrapper">
           <div className="header">
-            <SearchBar
-              onChangeSearchBar={ this._onChangeSearchBar }
-              onInputText={ searchText } />
-            <SearchButton
-              onChangeClickBtn={ this._onChangeClickBtn }
-              onClickedNum={ clicked } />
+            <div className="header__wrapper">
+              <h1>Video Search App</h1>
+              <h2>검색창</h2>
+              <SearchBar
+                onChangeSearchBar={ this._onChangeSearchBar }
+                onInputText={ searchText } />
+              <SearchButton
+                onChangeClickBtn={ this._onChangeClickBtn }
+                onClickedNum={ clicked } />
+            </div>
           </div>
 
           <div className="body">
-            {
-              this._maybeRenderVideoSelected(selectedVId)
-            }
-            <VideoList
-              videoData={ VideoData }
-              handleClick={ this._handleVideoListClick }
-              handleFavorite={ this._handleVideoListFavorite } />
+            <div className="body__wrapper">
+              <h2>선택된 비디오</h2>
+              {
+                this._maybeRenderVideoSelected(selectedVId)
+              }
+            </div>
+            <div className="body__wrapper">
+              <h2>비디오 리스트</h2>
+              <VideoList
+                videoData={ VideoData }
+                handleClick={ this._handleVideoListClick }
+                handleFavorite={ this._handleVideoListFavorite } />
+            </div>
+            <div className="body__wrapper">
+              <h2>즐겨찾기</h2>
+
+            </div>
           </div>
         </div>
       </div>
@@ -95,10 +115,16 @@ class App extends PureComponent {
     });
   }
 
-  // 비디오 즐겨찾기 버튼을 누르면 그 비디오의 id가
-  // 콘솔창에 찍혀야한다.
   _handleVideoListFavorite = (id) => {
-    console.log('id', id);
+    const { favorVIdList } = this.state;
+
+    // 목표: id가 favorVIdList에 있으면 삭제하고 없으면 추가한다.
+    // immutable-js의 List를 활용
+    // 참조: https://facebook.github.io/immutable-js/docs/#/List
+    // 방법:
+    // indexOf를 활용해서 리스트의 인덱스를 가져온다.
+    // 인덱스를 활용해서 존재유무를 확인하고
+    // 리스트에 추가하거나 삭제한다.
   }
 }
 
