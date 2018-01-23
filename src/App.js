@@ -1,46 +1,27 @@
 import { List } from 'immutable';
 import React, { PureComponent } from 'react';
+import VideoData from './jsons/data';
+
 import SearchBar from './components/SearchBar';
 import SearchButton from './components/SearchButton';
 import VideoList from './components/VideoList';
 import VideoSelected from './components/VideoSelected';
+import FavorVideoList from './components/FavorVideoList';
 import './App.css';
 
-const VideoData = [
-  {
-    id: 0,
-    title: '1번 비디오',
-    thumbnail: 'example1.com'
-  },
-  {
-    id: 1,
-    title: '2번 비디오',
-    thumbnail: 'example1.com'
-  },
-  {
-    id: 2,
-    title: '3번 비디오',
-    thumbnail: 'example1.com'
-  },
-  {
-    id: 3,
-    title: '4번 비디오',
-    thumbnail: 'example1.com'
-  }
-];
+
 class App extends PureComponent {
   state = {
     searchText: '',
-    clicked: 0,
-    selectedVId: -1,
-    favorVIdList: List()
+    selectedVid: -1,
+    favorVidList: List()
   };
 
   render() {
-    const { searchText, clicked, selectedVId, favorVIdList } = this.state;
+    const { searchText, selectedVid, favorVidList } = this.state;
 
-    // 결과 확인
-    console.log(favorVIdList.toJS());
+    // 즐겨찾기한 video
+    const _favorVideo = this._filterVideo(List(VideoData), favorVidList);
 
     return (
       <div className="container">
@@ -54,7 +35,7 @@ class App extends PureComponent {
                 onInputText={ searchText } />
               <SearchButton
                 onChangeClickBtn={ this._onChangeClickBtn }
-                onClickedNum={ clicked } />
+                onClickedNum={ 0 } />
             </div>
           </div>
 
@@ -62,7 +43,7 @@ class App extends PureComponent {
             <div className="body__wrapper">
               <h2>선택된 비디오</h2>
               {
-                this._maybeRenderVideoSelected(selectedVId)
+                this._maybeRenderVideoSelected(selectedVid)
               }
             </div>
             <div className="body__wrapper">
@@ -74,7 +55,14 @@ class App extends PureComponent {
             </div>
             <div className="body__wrapper">
               <h2>즐겨찾기</h2>
-
+              {/*
+                TODO:
+                FavorVideoList완성하기.
+              */}
+              <FavorVideoList
+                videoData={ null }
+                handleClick={ () => {} }
+                handleFavorite={ () => {} } />
             </div>
           </div>
         </div>
@@ -98,9 +86,6 @@ class App extends PureComponent {
   }
 
   _onChangeClickBtn = () => {
-    this.setState({
-      clicked: this.state.clicked + 1
-    });
   }
 
   _onChangeSearchBar = (e) => {
@@ -111,24 +96,43 @@ class App extends PureComponent {
 
   _handleVideoListClick = (id) => {
     this.setState({
-      selectedVId: id
+      selectedVid: id
     });
   }
 
   _handleVideoListFavorite = (id) => {
-    const { favorVIdList } = this.state;
+    const { favorVidList } = this.state;
 
-    const idx = favorVIdList.indexOf(id);
+    const idx = favorVidList.indexOf(id);
     if (idx !== -1) {
       this.setState({
-        favorVIdList: favorVIdList.delete(idx)
+        favorVidList: favorVidList.delete(idx)
       });
     } else {
       this.setState({
-        favorVIdList: favorVIdList.push(id)
+        favorVidList: favorVidList.push(id)
       });
     }
+  }
 
+  /*
+    vids에 해당하는 videos를 필터링해서 리턴해준다.
+    @vids: List<number>
+    @videos: List<video>
+  */
+  _filterVideo = (videos, vids) => {
+    /*
+      List.filter((value, index) => boolean)
+
+      true를 리턴하면 List에 그대로 남아있고
+      false를 리턴하면 필터링되어서 없어진다.
+    */
+    const filteredVideos = videos.filter((video, idx) => {
+      // TODO: video의 id가 vids에 있으면 true를 리턴한다.
+      return false;
+    });
+
+    return filteredVideos;
   }
 }
 
