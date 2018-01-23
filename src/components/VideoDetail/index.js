@@ -34,9 +34,7 @@ class VideoDetail extends PureComponent {
 
   _handleFavorite = () => {
     const { id, handleFavorite } = this.props;
-    if (handleFavorite) {
-      handleFavorite(id);
-    }
+    handleFavorite(id);
   }
 }
 
